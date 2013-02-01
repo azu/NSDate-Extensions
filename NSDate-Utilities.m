@@ -13,11 +13,21 @@
 #import "NSDate-Utilities.h"
 
 #define DATE_COMPONENTS (NSYearCalendarUnit| NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit |  NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit | NSWeekdayOrdinalCalendarUnit)
-#define CURRENT_CALENDAR [NSCalendar currentCalendar]
+#define CURRENT_CALENDAR [self shareCalendar]
 
 @implementation NSDate (Utilities)
 
-#pragma mark Relative Dates
+#pragma mark - Calendar cache
+
++ (NSCalendar *)shareCalendar {
+    static NSCalendar *result;
+    if (!result){
+        result = [NSCalendar currentCalendar];
+    }
+    return result;
+}
+
+#pragma mark - Relative Dates
 
 + (NSDate *) dateWithDaysFromNow: (NSInteger) days
 {
