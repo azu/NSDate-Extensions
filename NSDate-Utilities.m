@@ -13,7 +13,7 @@
 #import "NSDate-Utilities.h"
 
 #define DATE_COMPONENTS (NSYearCalendarUnit| NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit |  NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit | NSWeekdayOrdinalCalendarUnit)
-#define CURRENT_CALENDAR [self shareCalendar]
+#define CURRENT_CALENDAR [[self class] shareCalendar]
 
 @implementation NSDate (Utilities)
 
