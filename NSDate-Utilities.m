@@ -13,7 +13,7 @@
 #import "NSDate-Utilities.h"
 
 #define DATE_COMPONENTS (NSYearCalendarUnit| NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit |  NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit | NSWeekdayOrdinalCalendarUnit)
-#define CURRENT_CALENDAR [[self class] shareCalendar]
+#define CURRENT_CALENDAR [NSCalendar currentCalendar]
 
 @implementation NSDate (Utilities)
 
@@ -206,6 +206,41 @@
 }
 
 #pragma mark Adjusting Dates
+
+- (NSDate *) dateWithYear:(NSInteger) year
+{
+    NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
+    components.year = year;
+    return [CURRENT_CALENDAR dateFromComponents:components];
+}
+
+- (NSDate *) dateByAddingYears: (NSInteger) dYears
+{
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    components.year = dYears;
+    NSDate *newDate = [CURRENT_CALENDAR dateByAddingComponents:components toDate:self options:0];
+    [components release];
+    return newDate;
+}
+
+- (NSDate *) dateBySubtractingYears: (NSInteger) dYears
+{
+    return [self dateByAddingYears:(dYears * -1)];
+}
+
+- (NSDate *) dateByAddingMonths: (NSInteger) dMonths
+{
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    components.month = dMonths;
+    NSDate *newDate = [CURRENT_CALENDAR dateByAddingComponents:components toDate:self options:0];
+    [components release];
+    return newDate;
+}
+
+- (NSDate *) dateBySubtractingMonths: (NSInteger) dMonths
+{
+    return [self dateByAddingMonths:(dMonths * -1)];
+}
 
 - (NSDate *) dateByAddingDays: (NSInteger) dDays
 {
