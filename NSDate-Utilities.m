@@ -20,7 +20,7 @@
 #pragma mark - Calendar cache
 
 + (NSCalendar *)shareCalendar {
-    static NSCalendar *result;
+    static NSCalendar *result = nil;
     if (!result){
         result = [NSCalendar currentCalendar];
     }
